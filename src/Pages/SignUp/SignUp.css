@@ -1,4 +1,4 @@
-.signupPage{
+.signup-page{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     width: 100vw;
 }
 
-.mainContent{
+.main-content{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -18,7 +18,7 @@
     
 }
 
-.signupBlock{
+.signup-block{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,7 +29,7 @@
     
 }
 
-.logoHead{
+.logo-head{
     display: flex;
     flex-direction: row;
     height: 5%;
@@ -39,7 +39,7 @@
     
 }
 
-.headLabel{
+.head-label{
     display: flex;
     height: 15%;
     width: 85%;
@@ -49,7 +49,7 @@
     
 }
 
-.fullName{
+.fullname{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -59,14 +59,14 @@
     gap: 2%;
 }
 
-.userName{
+.username{
     display: flex;
     flex-flow: row wrap;
     height: 14%;
-    width: 80%;   
+    width: 76%;   
 }
 
-.currentEmail{
+.current-email{
     display: flex;
     height: 7%;
     width: 85%;
@@ -85,10 +85,12 @@
     justify-content: flex-start;
 }
 
-.showPassword{
+.show-password{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    height: 20%;
+    align-items: center;
     
 }
 
@@ -138,4 +140,10 @@ small{
 .side-logo-text{
     height: 10%;
     width: 70%;
+}
+
+@media screen  and (min-width: 300px) and (max-width: 500px) {
+    .side-logo{
+        display: none;
+    }
 }
