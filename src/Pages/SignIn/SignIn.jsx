@@ -63,8 +63,8 @@ export default function SignIn() {
         if(emailCheck === true && passCheck === true){
             signin(signInObj).then((response) =>{
                 console.log(response);
-                localStorage.setItem("token",response.data.result);
-                console.log(response.data.result);
+                localStorage.setItem("token",response.data.data.token);
+                console.log(response.data.data.token);
                 navigate("/dashboard");
             }).catch((error) =>{
                 console.log(error)
@@ -105,12 +105,12 @@ export default function SignIn() {
                     <div className="fundooText">
                         Use Your Fundoo Account
                     </div>
-                    <form>
+                    <form className='formBlock'>
                         <div className="emailBlock">
                             <TextField label="First name" onChange={takeEmail} error={regexObj.emailBorder} helperText={regexObj.emailHelper} variant="outlined" size="small" required />
                         </div>
                         <div className="passwordBlock">
-                            <TextField label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined" size="small" required />
+                            <TextField label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined"  size="small" required />
                             <a href="#" className='linkText'>Forget Password?</a>
                         </div>
                     </form>
