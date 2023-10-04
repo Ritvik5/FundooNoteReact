@@ -70,9 +70,6 @@ export default function SignIn() {
                 console.log(error)
             })
         }
-
-        
-       
     }
 
     
@@ -110,7 +107,7 @@ export default function SignIn() {
                             <TextField label="First name" onChange={takeEmail} error={regexObj.emailBorder} helperText={regexObj.emailHelper} variant="outlined" size="small" required />
                         </div>
                         <div className="passwordBlock">
-                            <TextField label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined"  size="small" required />
+                            <TextField label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined"  size="small" required type="password" />
                             <a href="#" className='linkText'>Forget Password?</a>
                         </div>
                     </form>

@@ -4,54 +4,55 @@ import image from '../../Assets/logo.png'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { signup } from '../../Service/UserService'
 const nameRegex = /^([A-Z]{1}[a-z,A-Z]{2,})$/;
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
 
 
 export default function SignUp() {
-    const [data, setData] = useState({ FirstName: '', LastName: '', Email: '', Password: '', ConfirmPassword: '' })
+    const [data, setData] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '' })
 
-    const takeFirstName = (firstName) => {
+    const takeFirstName = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                FirstName: firstName.target.value
+                firstName: e.target.value
             }))
     }
 
-    const takeLastName = (lastName) => {
+    const takeLastName = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                LastName: lastName.target.value
+                lastName: e.target.value
             }
         ))
     }
 
-    const takeEmail = (email) => {
+    const takeEmail = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                Email: email.target.value
+                email: e.target.value
             }
         ))
     }
 
-    const takePassword = (pass) => {
+    const takePassword = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                Password: pass.target.value
+                password: e.target.value
             }
         ))
     }
 
-    const takeConfirmPassword = (conPass) => {
+    const takeConfirmPassword = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                ConfirmPassword: conPass.target.value
+                confirmPassword: e.target.value
             }
         ))
     }
@@ -75,11 +76,12 @@ export default function SignUp() {
     const [regexObj, setRegexObj] = useState(regObj)
 
     const verifyUserSignUp = () => {
-        let firstNameCheck = nameRegex.test(data.FirstName);
-        let lastNameCheck = nameRegex.test(data.LastName);
-        let emailCheck = emailRegex.test(data.Email);
-        let passCheck = passwordRegex.test(data.Password);
-        let conPassCheck = passwordRegex.test(data.ConfirmPassword);
+        let firstNameCheck = nameRegex.test(data.firstName);
+        let lastNameCheck = nameRegex.test(data.lastName);
+        let emailCheck = emailRegex.test(data.email);
+        let passCheck = passwordRegex.test(data.password);
+        let conPassCheck = passwordRegex.test(data.confirmPassword);
+        let passConfirmCheck = (data.password).matchAll(data.confirmPassword);
 
         if (firstNameCheck === false) {
             setRegexObj(prevState => ({
@@ -110,59 +112,65 @@ export default function SignUp() {
             }))
         }
 
-        if (emailCheck === false){
-            setRegexObj(prevState =>({
+        if (emailCheck === false) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 emailBorder: true,
                 emailHelper: "Please enter a valid email"
             }))
         }
-        else if(emailCheck === true){
-            setRegexObj(prevState =>({
+        else if (emailCheck === true) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 emailBorder: false,
                 emailHelper: ''
             }))
         }
 
-        if(passCheck === false){
-            setRegexObj(prevState =>({
+        if (passCheck === false) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 passBorder: true,
                 passHelper: "Please enter a valid password"
             }))
         }
-        else if (passCheck === true){
-            setRegexObj(prevState =>({
+        else if (passCheck === true) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 passBorder: false,
                 passHelper: ''
             }))
         }
 
-        if(conPassCheck === false){
-            setRegexObj(prevState =>({
+        if (conPassCheck === false) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 confirmPassBorder: true,
                 confirmPassHelper: "Please enter the same password"
             }))
         }
-        else if(conPassCheck === true){
-            setRegexObj(prevState =>({
+        else if (conPassCheck === true) {
+            setRegexObj(prevState => ({
                 ...prevState,
                 confirmPassBorder: false,
                 confirmPassHelper: ''
             }))
         }
 
-        
-        
+        if (firstNameCheck === true && lastNameCheck === true && emailCheck === true && passCheck === true && conPassCheck === true) {
+            signup(data).then((response) => {
+                navigateToSignIn();
+                console.log(response)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
     }
 
     let navigate = useNavigate();
 
-    const navigateToSignIn = () =>{
-            navigate("/")
+    const navigateToSignIn = () => {
+        navigate("/")
     }
 
     return (
@@ -195,8 +203,8 @@ export default function SignUp() {
                     </div>
                     <div className="current-email"><a href="">Use my current email address instead</a></div>
                     <div className="password">
-                        <TextField onChange={takePassword} label="Password" error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined" size="small" />
-                        <TextField onChange={takeConfirmPassword} label="Confirm" error={regexObj.confirmPassBorder} helperText={regexObj.confirmPassHelpers} variant="outlined" size="small" />
+                        <TextField onChange={takePassword} label="Password" error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined" size="small" type="password" />
+                        <TextField onChange={takeConfirmPassword} label="Confirm" error={regexObj.confirmPassBorder} helperText={regexObj.confirmPassHelpers} variant="outlined" size="small" type='password'/>
                         <small className="pass-text">Use 8 or more characters with a mix of letters, numbers & symbols</small>
                     </div>
                     <div className="show-password">
@@ -206,7 +214,9 @@ export default function SignUp() {
                     </div>
                     <div className="buttons">
                         <span className="sign-in-btn"><a href='#' className="link-text" onClick={navigateToSignIn}>Sign in instead</a></span>
-                        <Button onClick={verifyUserSignUp} className=".next-button" variant="contained" >Next</Button>
+                        <Button onClick={() => {
+                            verifyUserSignUp();
+                        }} className=".next-button" variant="contained" >Next</Button>
                     </div>
 
                 </div>

@@ -3,7 +3,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';  
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -13,6 +13,7 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import { connect } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -41,7 +42,6 @@ const closedMixin = (theme) => ({
 
 
 
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         width: drawerWidth,
@@ -61,33 +61,28 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer(props) {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
+    const drawerStyles = {
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        transition: 'width 0.3s',
+        marginTop: '70px'
     };
 
     const selectMenuOption = (menuName) => {
         props.listenToDrawer(menuName)
-        props.dispatch({
+        // props.dispatch({
 
-            type: `${menuName}`
-        })
+        //     type: `${menuName}`
+        // })
+        props.setNoteOption(menuName)
     }
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
 
-            <Drawer variant="permanent" open={props.drawerToggle} sx={{zIndex:-1}} PaperProps={{
-              sx:{
-                border:'none',
-              }
-            }}>
+            <Drawer variant="permanent" open={props.drawerToggle} sx={{ zIndex: 1 }} PaperProps={{style:drawerStyles}}>
 
                 {/* <Divider /> */}
                 <List>
@@ -106,7 +101,7 @@ export default function MiniDrawer(props) {
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
-                                    mr: open ? 3 : 'auto',
+                                    mr: 'auto',
                                     justifyContent: 'center',
                                 }}
                             >
@@ -130,7 +125,7 @@ export default function MiniDrawer(props) {
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
-                                    mr: open ? 3 : 'auto',
+                                    mr: 'auto',
                                     justifyContent: 'center',
                                 }}
                             >
@@ -154,7 +149,7 @@ export default function MiniDrawer(props) {
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
-                                    mr: open ? 3 : 'auto',
+                                    mr: 'auto',
                                     justifyContent: 'center',
                                 }}
                             >
@@ -178,7 +173,7 @@ export default function MiniDrawer(props) {
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
-                                    mr: open ? 3 : 'auto',
+                                    mr: 'auto',
                                     justifyContent: 'center',
                                 }}
                             >
@@ -188,7 +183,7 @@ export default function MiniDrawer(props) {
                             <ListItemText primary="Archive" style={{ marginLeft: 30 }} />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Bin")}>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Trash")}>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -202,14 +197,14 @@ export default function MiniDrawer(props) {
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
-                                    mr: open ? 3 : 'auto',
+                                    mr: 'auto',
                                     justifyContent: 'center',
                                 }}
                             >
                                 <DeleteOutlineOutlinedIcon />
                                 {/* icons */}
                             </ListItemIcon>
-                            <ListItemText primary="Bin" style={{ marginLeft: 30 }} />
+                            <ListItemText primary="Trash" style={{ marginLeft: 30 }} />
                         </ListItemButton>
                     </ListItem>
 
@@ -223,3 +218,4 @@ export default function MiniDrawer(props) {
 }
 
 
+// export default connect()(MiniDrawer)

@@ -6,9 +6,13 @@ import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { InputBase, Box, Typography,useMediaQuery } from "@mui/material";
-import fundooLogo from '../../Assets/FundooNotes.png'
+import { Menu } from "@mui/material";
+import { MenuItem , IconButton} from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
+import { InputBase, Box, Typography, useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import fundooLogo from '../../Assets/FundooNotes.png';
+import { connect } from 'react-redux';
 
 export default function Header(props) {
 
@@ -19,6 +23,28 @@ export default function Header(props) {
     const theme = useTheme();
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const navigate = useNavigate();
+
+    const LogOut = () => {
+        if(localStorage.key){
+            localStorage.removeItem('token');
+            navigate("/");
+        }
+    }
+
 
     return (
         <Box
@@ -103,10 +129,10 @@ export default function Header(props) {
                         outline: 'none',
                         height: '85%',
                         width: '70%',
-                        paddingLeft: 10,
+                        paddingLeft: 2,
                     }}
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search..."
                 />
             </Box>
 
@@ -177,7 +203,35 @@ export default function Header(props) {
                         width: '18%',
                     }}
                 >
-                    <AccountCircleOutlinedIcon />
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={LogOut}>Logout</MenuItem>
+                    </Menu>
+
                 </Box>
             </Box>
         </Box>
