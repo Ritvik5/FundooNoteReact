@@ -11,7 +11,8 @@ import { Box } from '@mui/material'
 
 export default function Dashboard() {
 
-    const [drawerToggle, setDrawerToggle] = useState(false)
+    const [drawerToggle, setDrawerToggle] = useState(false);
+
     const [showNoteTwo, setShowNoteTwo] = useState(true);
 
     const [notList, setNoteList] = useState([]);

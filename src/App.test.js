@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import SignIn from './Pages/SignIn/SignIn';
+import { BrowserRouter} from 'react-router-dom';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+test('header render with react testing', async () => {
+  render(<BrowserRouter><SignIn/></BrowserRouter>);
+  const linkElement = screen.getByText(/Use Your Fundoo Account/i);
   expect(linkElement).toBeInTheDocument();
 });

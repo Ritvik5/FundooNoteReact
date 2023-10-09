@@ -33,7 +33,7 @@ export default function SignIn() {
                 password: pass.target.value
             }))
     }
-    console.log(signInObj);
+    // console.log(signInObj);
 
     const verifyEmailPass = () => {
         //let navigate = useNavigate();
@@ -104,10 +104,10 @@ export default function SignIn() {
                     </div>
                     <form className='formBlock'>
                         <div className="emailBlock">
-                            <TextField label="First name" onChange={takeEmail} error={regexObj.emailBorder} helperText={regexObj.emailHelper} variant="outlined" size="small" required />
+                            <TextField data-testid='emailtextfield' label="First name" onChange={takeEmail} error={regexObj.emailBorder} helperText={regexObj.emailHelper} variant="outlined" size="small" />
                         </div>
                         <div className="passwordBlock">
-                            <TextField label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined"  size="small" required type="password" />
+                            <TextField  label="Password" onChange={takePassword} error={regexObj.passBorder} helperText={regexObj.passHelper} variant="outlined"  size="small" required type="password" />
                             <a href="#" className='linkText'>Forget Password?</a>
                         </div>
                     </form>
@@ -117,7 +117,7 @@ export default function SignIn() {
 
                         </div>
                         <div>
-                            <button onClick={verifyEmailPass} className="nextBtn" variant="contained" >Next</button>
+                            <button onClick={verifyEmailPass} className="nextBtn" variant="contained" data-testid='loginbtm' >Next</button>
                         </div>
                     </div>
                 </div>

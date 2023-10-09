@@ -97,7 +97,8 @@ export default function TakeNoteThree(props) {
               <IconButton aria-label="Archive" onClick={()=>{ archivedNote(props.note.noteId)}} >
                 <ArchiveOutlined />
               </IconButton>
-              <IconButton aria-label="More Options " onClick={()=> { props.note.isTrash === true ? deleteNote(props.note.noteId) : trashNote(props.note.noteId)} } >
+              <IconButton aria-label="More Options "
+               onClick={()=> { props.note.isTrash === true ? deleteNote(props.note.noteId) : trashNote(props.note.noteId)} } >
                 <DeleteForeverOutlined />
               </IconButton>
             </div>
